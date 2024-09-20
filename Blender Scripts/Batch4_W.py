@@ -120,7 +120,7 @@ def create_material(plane_object, pseudocolor_path, displacement_path):
     # Add Displacement node
     displacement_node = nodes.new(type="ShaderNodeDisplacement")
     displacement_node.location = (100, 0)
-    displacement_node.inputs["Scale"].default_value = 2.0
+    displacement_node.inputs["Scale"].default_value = 0.6
     displacement_node.inputs["Midlevel"].default_value = 200.0
 
     # Link Image Texture to Displacement Height
@@ -192,10 +192,11 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
         if n > 10000:
             break
         if pseudocolor_file.endswith(".tif"):  # Ensure the file is a TIFF image
+            print ("f")
             pseudocolor_path = os.path.join(pseudocolor_folder, pseudocolor_file)
 
             # Derive the displacement path (assuming matching filenames for displacement)
-            displacement_file = pseudocolor_file.replace("pseudocolor", "rescaled")
+            displacement_file = pseudocolor_file.replace("DTM", "DTM")
             displacement_path = os.path.join(displacement_folder, displacement_file)
 
             if os.path.exists(displacement_path):
@@ -209,7 +210,7 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
                 material, pseudocolor_image, displacement_image = create_material(plane, pseudocolor_path, displacement_path)
 
                 # Derive the output path for the render
-                output_file = pseudocolor_file.replace("pseudocolor", "shade")
+                output_file = pseudocolor_file.replace("DTM", "shade")
                 output_path = os.path.join(output_folder, output_file)
 
                 # Render the orthophoto
@@ -226,9 +227,14 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
 
 
 # Define folders
-pseudocolor_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/pseudocolor"
-displacement_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/DTM_adj"
-output_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/hillshade"
+# pseudocolor_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/pseudocolor"
+# displacement_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/DTM_adj"
+# output_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/hillshade"
 
+
+
+pseudocolor_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A/pseudocolor"
+displacement_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A/DTM_adj"
+output_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A/hillshade"
 # Process all pseudocolor files
 process_folder(pseudocolor_folder, displacement_folder, output_folder)
