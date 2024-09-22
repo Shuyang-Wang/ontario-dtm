@@ -196,7 +196,7 @@ def remove_existing_objects():
 def process_folder(pseudocolor_folder, displacement_folder, output_folder):
     # Iterate through all files in the pseudocolor folder
     n = 0
-    for pseudocolor_file in sorted(os.listdir(pseudocolor_folder)):
+    for pseudocolor_file in sorted(os.listdir(pseudocolor_folder))[288:]:
         n += 1
         if n > 5000:
             break
