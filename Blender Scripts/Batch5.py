@@ -2,8 +2,20 @@ import bpy
 import os
 import gc
 
+template_path = "/Users/shuyang/Documents/GitHub/ontario-dtm/Blender Scripts/template.blend"
+#bpy.ops.wm.open_mainfile(filepath=template_path)
 # Disable global undo to save memory
 bpy.context.preferences.edit.use_global_undo = False
+
+def setup_color_management():
+    scene = bpy.context.scene
+    scene.view_settings.view_transform = 'Standard'  # Options: 'Filmic', 'Standard', etc.
+    scene.view_settings.look = 'None'  # Adjust as needed
+    scene.view_settings.exposure = 0.0
+    scene.view_settings.gamma = 1.0
+    print('Color management settings configured')
+
+#setup_color_management()
 
 
 def setup_lighting_and_camera():
@@ -41,14 +53,18 @@ def setup_render_settings():
     # Set the render engine to Eevee
     scene.render.engine = 'BLENDER_EEVEE_NEXT'
 
-    # Set maximum render samples to 30
-    scene.eevee.taa_render_samples = 15
+    # Eevee Settings
+    eevee = scene.eevee
+    eevee.taa_render_samples = 15
+    eevee.use_gtao = True  # Enable Ambient Occlusion
+    eevee.use_ssr = True    # Enable Screen Space Reflections
+    #eevee.shadow_method = 'ESM'  # Example shadow method
 
-    # Optional: Adjust other Eevee settings if necessary
-    # scene.eevee.use_gtao = True  # Enable Ambient Occlusion
-    # scene.eevee.use_ssr = True   # Enable Screen Space Reflections
+    # Ensure consistent lighting and shadows
+    eevee.use_soft_shadows = False  # Disable soft shadows for consistency
 
-    print('Render settings configured for Eevee with max 30 samples')
+    print('Render settings configured for Eevee with specified parameters')
+
 
 setup_render_settings()
 
@@ -120,7 +136,7 @@ def create_material(plane_object, pseudocolor_path, displacement_path):
     # Add Displacement node
     displacement_node = nodes.new(type="ShaderNodeDisplacement")
     displacement_node.location = (100, 0)
-    displacement_node.inputs["Scale"].default_value = 0.6
+    displacement_node.inputs["Scale"].default_value = 5.37 #0.6
     displacement_node.inputs["Midlevel"].default_value = 200.0
 
     # Link Image Texture to Displacement Height
@@ -182,7 +198,7 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
     n = 0
     for pseudocolor_file in sorted(os.listdir(pseudocolor_folder)):
         n += 1
-        if n > 500:
+        if n > 50:
             break
         if pseudocolor_file.endswith(".tif"):  # Ensure the file is a TIFF image
             print ("f")
@@ -228,7 +244,7 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
 import os
 
 # Define workspace folder
-workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-B" 
+workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-C" 
 
 # Define specific subfolders based on the workspace
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")  # Folder for pseudocolor images

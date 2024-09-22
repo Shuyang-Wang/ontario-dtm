@@ -235,7 +235,7 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
 import os
 
 # Define workspace folder
-workspace_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/Elora" 
+workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A" 
 
 # Define specific subfolders based on the workspace
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")  # Folder for pseudocolor images
