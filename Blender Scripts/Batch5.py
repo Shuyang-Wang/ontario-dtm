@@ -3,7 +3,7 @@ import os
 import gc
 
 template_path = "/Users/shuyang/Documents/GitHub/ontario-dtm/Blender Scripts/template.blend"
-#bpy.ops.wm.open_mainfile(filepath=template_path)
+bpy.ops.wm.open_mainfile(filepath=template_path)
 # Disable global undo to save memory
 bpy.context.preferences.edit.use_global_undo = False
 
@@ -196,7 +196,7 @@ def remove_existing_objects():
 def process_folder(pseudocolor_folder, displacement_folder, output_folder):
     # Iterate through all files in the pseudocolor folder
     n = 0
-    for pseudocolor_file in sorted(os.listdir(pseudocolor_folder))[288:]:
+    for pseudocolor_file in sorted(os.listdir(pseudocolor_folder)):
         n += 1
         if n > 5000:
             break
