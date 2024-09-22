@@ -154,13 +154,6 @@ def render_orthophoto(output_path):
     # Render the orthophoto
     bpy.ops.render.render(write_still=True)
 
-import bpy
-import os
-import gc
-
-import bpy
-import os
-import gc
 
 def remove_existing_objects():
     # Function to remove all existing objects, images, and materials from the previous iteration
@@ -235,7 +228,7 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
 import os
 
 # Define workspace folder
-workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A" 
+workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-B" 
 
 # Define specific subfolders based on the workspace
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")  # Folder for pseudocolor images
