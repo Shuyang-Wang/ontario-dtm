@@ -232,9 +232,15 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
 # output_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/hillshade"
 
 
+import os
 
-pseudocolor_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A/pseudocolor"
-displacement_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A/DTM_adj"
-output_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A/hillshade"
+# Define workspace folder
+workspace_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/Elora" 
+
+# Define specific subfolders based on the workspace
+pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")  # Folder for pseudocolor images
+displacement_folder = os.path.join(workspace_folder, "DTM_adj")  # Folder for adjusted DTM displacement files
+output_folder = os.path.join(workspace_folder, "hillshade","Original")  # Folder for hillshade output
+
 # Process all pseudocolor files
 process_folder(pseudocolor_folder, displacement_folder, output_folder)
