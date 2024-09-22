@@ -136,7 +136,7 @@ def create_material(plane_object, pseudocolor_path, displacement_path):
     # Add Displacement node
     displacement_node = nodes.new(type="ShaderNodeDisplacement")
     displacement_node.location = (100, 0)
-    displacement_node.inputs["Scale"].default_value = 5.37 #0.6
+    displacement_node.inputs["Scale"].default_value = 0.39 #0.6
     displacement_node.inputs["Midlevel"].default_value = 200.0
 
     # Link Image Texture to Displacement Height
@@ -198,7 +198,7 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
     n = 0
     for pseudocolor_file in sorted(os.listdir(pseudocolor_folder)):
         n += 1
-        if n > 50:
+        if n > 5000:
             break
         if pseudocolor_file.endswith(".tif"):  # Ensure the file is a TIFF image
             print ("f")
