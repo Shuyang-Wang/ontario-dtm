@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mapbox GL JS map with Layer Toggle</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        .control-panel {
+            position: absolute;
+            background: white;
+            padding: 10px;
+            z-index: 1;
+            top: 10px;
+            left: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<div class="control-panel">
+    <label><input type="checkbox" id="toggle-layer-a" checked> Layer A (lakenipissing-dtm-a)</label><br>
+    <label><input type="checkbox" id="toggle-layer-b" checked> Layer B (lakenipissing-dtm-b)</label>
+</div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2h1eWFuZ3dhbmciLCJhIjoiY20xYjRnOGt4MGs3eTJpb25hNDUyMHB4biJ9.8TwIepJUsUk8VFR48NIt8w';
+
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/shuyangwang/cm1b7b87900yg01pddw4we63k', // Your custom style
+        center: [-80.5502, 46.108], // Center position [lng, lat]
+        zoom: 11.51 // Initial zoom level
+    });
+
+    map.on('load', function () {
+        // Toggle visibility for Layer A
+        document.getElementById('toggle-layer-a').addEventListener('change', function (e) {
+            const visibility = e.target.checked ? 'visible' : 'none';
+            map.setLayoutProperty('shuyangwang.adazafxp', 'visibility', visibility);
+        });
+
+        // Toggle visibility for Layer B
+        document.getElementById('toggle-layer-b').addEventListener('change', function (e) {
+            const visibility = e.target.checked ? 'visible' : 'none';
+            map.setLayoutProperty('lakenipissing-dtm-b', 'visibility', visibility);
+        });
+    });
+</script>
+</body>
+</html>

@@ -136,7 +136,7 @@ def create_material(plane_object, pseudocolor_path, displacement_path):
     # Add Displacement node
     displacement_node = nodes.new(type="ShaderNodeDisplacement")
     displacement_node.location = (100, 0)
-    displacement_node.inputs["Scale"].default_value = 0.39 #0.6
+    displacement_node.inputs["Scale"].default_value = 0.491 #0.6
     displacement_node.inputs["Midlevel"].default_value = 200.0
 
     # Link Image Texture to Displacement Height
@@ -244,7 +244,7 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
 import os
 
 # Define workspace folder
-workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-C" 
+workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-D" 
 
 # Define specific subfolders based on the workspace
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")  # Folder for pseudocolor images
