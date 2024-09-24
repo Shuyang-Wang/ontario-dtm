@@ -47,11 +47,11 @@ LEAP 2009,LEAP D,2.84,1.0,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packag
 LEAP 2009,LEAP E,1.69,1.0,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/LEAP2009_DTM-E.zip,Completed,LEAP2009_DTM-E.zip
 CLOCA Lidar 2018,CLOCA Lidar DTM A,1.54,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/CLOCA_Lidar_DTM-A.zip,Completed,CLOCA_Lidar_DTM-A.zip
 SNC Lidar 2018-19,SNC A,2.73,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/SouthNationConservation_DTM-A.zip,Completed,SouthNationConservation_DTM-A.zip
-GTA 2014-18,GTA 2014 A,2.91,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-A.zip,,
-GTA 2014-18,GTA 2014 B,2.9,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-B.zip,,
-GTA 2014-18,GTA 2014 C,2.73,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-C.zip,,
-GTA 2014-18,GTA 2014 D,2.82,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-D.zip,,
-GTA 2014-18,GTA 2015 A,0.42,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-A.zip,,
+GTA 2014-18,GTA 2014 A,2.91,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-A.zip,Completed,GTA2014-LidarDTM-A.zip
+GTA 2014-18,GTA 2014 B,2.9,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-B.zip,Completed,GTA2014-LidarDTM-B.zip
+GTA 2014-18,GTA 2014 C,2.73,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-C.zip,Completed,GTA2014-LidarDTM-C.zip
+GTA 2014-18,GTA 2014 D,2.82,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-D.zip,Completed,GTA2014-LidarDTM-D.zip
+GTA 2014-18,GTA 2015 A,0.42,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-A.zip,Completed,GTA2015-LidarDTM-A.zip
 GTA 2014-18,GTA 2015 B,2.95,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-B.zip,,
 GTA 2014-18,GTA 2015 C,2.63,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-C.zip,,
 GTA 2014-18,GTA 2015 D,2.71,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-D.zip,,
