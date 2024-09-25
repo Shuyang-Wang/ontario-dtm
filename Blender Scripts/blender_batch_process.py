@@ -365,7 +365,7 @@ def remove_existing_objects():
 
     gc.collect()
 
-def process_batch(files, batch_number):
+def process_batch(files, batch_number, override_output_file=False):
     setup_lighting_and_camera()
     setup_render_settings()
 
@@ -379,13 +379,21 @@ def process_batch(files, batch_number):
                 remove_existing_objects()
                 plane = create_plane()
                 create_material(plane, pseudocolor_path, displacement_path)
+                
+                # Set the output file path
                 output_file = pseudocolor_file.replace("pseudocolor", "shade")
                 output_path = os.path.join(output_folder, output_file)
-                render_orthophoto(output_path)
+
+                # Check if output file already exists and whether to override it
+                if not override_output_file and os.path.exists(output_path):
+                    print(f"Output file already exists and override is set to False: {output_file}")
+                else:
+                    render_orthophoto(output_path)
             else:
                 print(f"Displacement map not found for {pseudocolor_file}")
 
     gc.collect()
+
 
 def process_folder_in_batches(batch_number, batch_size):
     pseudocolor_files = sorted([f for f in os.listdir(pseudocolor_folder) if f.endswith(".tif")])
