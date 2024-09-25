@@ -5,6 +5,7 @@ import sys
 
 # Define paths (same as before)
 workspace_folder = '/Users/shuyang/Data/DTM/Lake Erie/LIDAR2016to18_DTM-LkErie-R'
+#workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A" 
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")
 displacement_folder = os.path.join(workspace_folder, "DTM_adj")
 output_folder = os.path.join(workspace_folder, "hillshade", "Original")
@@ -46,7 +47,7 @@ def setup_render_settings():
 
     # Eevee Settings
     eevee = scene.eevee
-    eevee.taa_render_samples = 25
+    eevee.taa_render_samples = 15
     eevee.use_gtao = True  # Enable Ambient Occlusion
     eevee.use_ssr = True    # Enable Screen Space Reflections
 
@@ -365,6 +366,7 @@ def remove_existing_objects():
 
     gc.collect()
 
+
 def process_batch(files, batch_number, override_output_file=False):
     setup_lighting_and_camera()
     setup_render_settings()
@@ -375,24 +377,26 @@ def process_batch(files, batch_number, override_output_file=False):
             displacement_file = pseudocolor_file.replace("pseudocolor", "rescaled")
             displacement_path = os.path.join(displacement_folder, displacement_file)
 
-            if os.path.exists(displacement_path):
-                remove_existing_objects()
-                plane = create_plane()
-                create_material(plane, pseudocolor_path, displacement_path)
-                
-                # Set the output file path
-                output_file = pseudocolor_file.replace("pseudocolor", "shade")
-                output_path = os.path.join(output_folder, output_file)
+            # Set the output file path
+            output_file = pseudocolor_file.replace("pseudocolor", "shade")
+            output_path = os.path.join(output_folder, output_file)
 
-                # Check if output file already exists and whether to override it
-                if not override_output_file and os.path.exists(output_path):
-                    print(f"Output file already exists and override is set to False: {output_file}")
-                else:
-                    render_orthophoto(output_path)
+            # Check if output file already exists and whether to override it
+            if os.path.exists(output_path) and not override_output_file:
+                print(f"Output file already exists: {output_file}. Skipping.")
+                continue  # Skip to the next file without doing any Blender operations
+
+            # Only proceed with Blender operations if the output file doesn't exist or override is True
+            if os.path.exists(displacement_path):
+                remove_existing_objects()  # Clean up any previous objects
+                plane = create_plane()  # Create a new plane
+                create_material(plane, pseudocolor_path, displacement_path)  # Set up the material
+                render_orthophoto(output_path)  # Render the output to the file
             else:
                 print(f"Displacement map not found for {pseudocolor_file}")
 
     gc.collect()
+
 
 
 def process_folder_in_batches(batch_number, batch_size):

@@ -7,6 +7,8 @@ script_path = "/Users/shuyang/Documents/GitHub/ontario-dtm/Blender Scripts/blend
 
 # Parameters
 workspace_folder = '/Users/shuyang/Data/DTM/Lake Erie/LIDAR2016to18_DTM-LkErie-R'
+#workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A" 
+
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")
 batch_size = 100
 
