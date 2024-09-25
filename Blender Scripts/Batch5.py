@@ -17,7 +17,6 @@ def setup_color_management():
 
 #setup_color_management()
 
-
 def setup_lighting_and_camera():
     # Add Sun Light
     light_data = bpy.data.lights.new(name="Sun", type='SUN')
@@ -58,7 +57,6 @@ def setup_render_settings():
     eevee.taa_render_samples = 25
     eevee.use_gtao = True  # Enable Ambient Occlusion
     eevee.use_ssr = True    # Enable Screen Space Reflections
-    #eevee.shadow_method = 'ESM'  # Example shadow method
 
     # Ensure consistent lighting and shadows
     eevee.use_soft_shadows = False  # Disable soft shadows for consistency
@@ -232,10 +230,6 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
     # Final cleanup of remaining objects, images, and materials after the loop
     # remove_existing_objects()
     
-# Define folders
-# pseudocolor_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/pseudocolor"
-# displacement_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/DTM_adj"
-# output_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/hillshade"
 
 import os
 
