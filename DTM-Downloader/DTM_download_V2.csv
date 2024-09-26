@@ -44,39 +44,39 @@ LEAP 2009,LEAP A,2.41,1.0,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packag
 LEAP 2009,LEAP B,2.75,1.0,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/LEAP2009_DTM-B.zip,Completed,LEAP2009_DTM-B.zip
 LEAP 2009,LEAP C,1.77,1.0,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/LEAP2009_DTM-C.zip,Completed,LEAP2009_DTM-C.zip
 LEAP 2009,LEAP D,2.84,1.0,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/LEAP2009_DTM-D.zip,Completed,LEAP2009_DTM-D.zip
-LEAP 2009,LEAP E,1.69,1.0,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/LEAP2009_DTM-E.zip,,
-CLOCA Lidar 2018,CLOCA Lidar DTM A,1.54,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/CLOCA_Lidar_DTM-A.zip,,
-SNC Lidar 2018-19,SNC A,2.73,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/SouthNationConservation_DTM-A.zip,,
-GTA 2014-18,GTA 2014 A,2.91,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-A.zip,,
-GTA 2014-18,GTA 2014 B,2.9,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-B.zip,,
-GTA 2014-18,GTA 2014 C,2.73,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-C.zip,,
-GTA 2014-18,GTA 2014 D,2.82,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-D.zip,,
-GTA 2014-18,GTA 2015 A,0.42,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-A.zip,,
-GTA 2014-18,GTA 2015 B,2.95,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-B.zip,,
-GTA 2014-18,GTA 2015 C,2.63,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-C.zip,,
-GTA 2014-18,GTA 2015 D,2.71,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-D.zip,,
-GTA 2014-18,GTA 2015 E,2.81,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-E.zip,,
-GTA 2014-18,GTA 2015 F,2.6,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-F.zip,,
-GTA 2014-18,GTA Brampton 2015 A,0.88,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Brampton-LidarDTM-A.zip,,
-GTA 2014-18,GTA Halton 2018 A,2.88,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Halton-LidarDTM-A.zip,,
-GTA 2014-18,GTA Halton 2018 B,2.3,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Halton-LidarDTM-B.zip,,
-GTA 2014-18,GTA Halton 2018 C,2.31,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Halton-LidarDTM-C.zip,,
-GTA 2014-18,GTA Halton 2018 D,2.17,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Halton-LidarDTM-D.zip,,
-GTA 2014-18,GTA Milton 2017 A,1.86,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Milton-LidarDTM-A.zip,,
-GTA 2014-18,GTA Peel 2016 A,2.36,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Peel-LidarDTM-A.zip,,
-GTA 2014-18,GTA Peel 2016 B,2.49,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Peel-LidarDTM-B.zip,,
-York-LakeSimcoe 2019,York-LakeSimcoe-DTM-A,3.26,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/York-LakeSimcoe-DTM-A.zip,,
-York-LakeSimcoe 2019,York-LakeSimcoe-DTM-B,3.25,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/York-LakeSimcoe-DTM-B.zip,,
-York-LakeSimcoe 2019,York-LakeSimcoe-DTM-C,3.23,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/York-LakeSimcoe-DTM-C.zip,,
-Ottawa River 2019-20,OttawaRiver-DTM-A,3.1,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-A.zip,,
-Ottawa River 2019-20,OttawaRiver-DTM-B,3.32,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-B.zip,,
-Ottawa River 2019-20,OttawaRiver-DTM-C,3.25,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-C.zip,,
-Ottawa River 2019-20,OttawaRiver-DTM-D,3.22,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-D.zip,,
-Ottawa River 2019-20,OttawaRiver-DTM-E,3.24,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-E.zip,,
-Ottawa River 2019-20,OttawaRiver-DTM-F,3.13,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-F.zip,,
-Ottawa River 2019-20,OttawaRiver-DTM-G,3.2,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-G.zip,,
-Ottawa River 2019-20,OttawaRiver-DTM-H,3.1,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-H.zip,,
-Ottawa River 2019-20,OttawaRiver-DTM-I,3.34,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-I.zip,,
+LEAP 2009,LEAP E,1.69,1.0,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/LEAP2009_DTM-E.zip,Completed,LEAP2009_DTM-E.zip
+CLOCA Lidar 2018,CLOCA Lidar DTM A,1.54,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/CLOCA_Lidar_DTM-A.zip,Completed,CLOCA_Lidar_DTM-A.zip
+SNC Lidar 2018-19,SNC A,2.73,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/SouthNationConservation_DTM-A.zip,Completed,SouthNationConservation_DTM-A.zip
+GTA 2014-18,GTA 2014 A,2.91,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-A.zip,Completed,GTA2014-LidarDTM-A.zip
+GTA 2014-18,GTA 2014 B,2.9,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-B.zip,Completed,GTA2014-LidarDTM-B.zip
+GTA 2014-18,GTA 2014 C,2.73,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-C.zip,Completed,GTA2014-LidarDTM-C.zip
+GTA 2014-18,GTA 2014 D,2.82,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2014-LidarDTM-D.zip,Completed,GTA2014-LidarDTM-D.zip
+GTA 2014-18,GTA 2015 A,0.42,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-A.zip,Completed,GTA2015-LidarDTM-A.zip
+GTA 2014-18,GTA 2015 B,2.95,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-B.zip,Completed,GTA2015-LidarDTM-B.zip
+GTA 2014-18,GTA 2015 C,2.63,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-C.zip,Completed,GTA2015-LidarDTM-C.zip
+GTA 2014-18,GTA 2015 D,2.71,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-D.zip,Completed,GTA2015-LidarDTM-D.zip
+GTA 2014-18,GTA 2015 E,2.81,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-E.zip,Completed,GTA2015-LidarDTM-E.zip
+GTA 2014-18,GTA 2015 F,2.6,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA2015-LidarDTM-F.zip,Completed,GTA2015-LidarDTM-F.zip
+GTA 2014-18,GTA Brampton 2015 A,0.88,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Brampton-LidarDTM-A.zip,Completed,GTA-Brampton-LidarDTM-A.zip
+GTA 2014-18,GTA Halton 2018 A,2.88,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Halton-LidarDTM-A.zip,Completed,GTA-Halton-LidarDTM-A.zip
+GTA 2014-18,GTA Halton 2018 B,2.3,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Halton-LidarDTM-B.zip,Completed,GTA-Halton-LidarDTM-B.zip
+GTA 2014-18,GTA Halton 2018 C,2.31,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Halton-LidarDTM-C.zip,Completed,GTA-Halton-LidarDTM-C.zip
+GTA 2014-18,GTA Halton 2018 D,2.17,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Halton-LidarDTM-D.zip,Completed,GTA-Halton-LidarDTM-D.zip
+GTA 2014-18,GTA Milton 2017 A,1.86,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Milton-LidarDTM-A.zip,Completed,GTA-Milton-LidarDTM-A.zip
+GTA 2014-18,GTA Peel 2016 A,2.36,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Peel-LidarDTM-A.zip,Completed,GTA-Peel-LidarDTM-A.zip
+GTA 2014-18,GTA Peel 2016 B,2.49,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/GTA-Peel-LidarDTM-B.zip,Completed,GTA-Peel-LidarDTM-B.zip
+York-LakeSimcoe 2019,York-LakeSimcoe-DTM-A,3.26,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/York-LakeSimcoe-DTM-A.zip,Completed,York-LakeSimcoe-DTM-A.zip
+York-LakeSimcoe 2019,York-LakeSimcoe-DTM-B,3.25,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/York-LakeSimcoe-DTM-B.zip,Completed,York-LakeSimcoe-DTM-B.zip
+York-LakeSimcoe 2019,York-LakeSimcoe-DTM-C,3.23,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/York-LakeSimcoe-DTM-C.zip,Completed,York-LakeSimcoe-DTM-C.zip
+Ottawa River 2019-20,OttawaRiver-DTM-A,3.1,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-A.zip,Completed,OttawaRiver-DTM-A.zip
+Ottawa River 2019-20,OttawaRiver-DTM-B,3.32,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-B.zip,Completed,OttawaRiver-DTM-B.zip
+Ottawa River 2019-20,OttawaRiver-DTM-C,3.25,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-C.zip,Completed,OttawaRiver-DTM-C.zip
+Ottawa River 2019-20,OttawaRiver-DTM-D,3.22,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-D.zip,Completed,OttawaRiver-DTM-D.zip
+Ottawa River 2019-20,OttawaRiver-DTM-E,3.24,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-E.zip,Completed,OttawaRiver-DTM-E.zip
+Ottawa River 2019-20,OttawaRiver-DTM-F,3.13,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-F.zip,Completed,OttawaRiver-DTM-F.zip
+Ottawa River 2019-20,OttawaRiver-DTM-G,3.2,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-G.zip,Completed,OttawaRiver-DTM-G.zip
+Ottawa River 2019-20,OttawaRiver-DTM-H,3.1,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-H.zip,Completed,OttawaRiver-DTM-H.zip
+Ottawa River 2019-20,OttawaRiver-DTM-I,3.34,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-I.zip,Completed,OttawaRiver-DTM-I.zip
 Ottawa River 2019-20,OttawaRiver-DTM-J,2.84,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-J.zip,,
 Ottawa River 2019-20,OttawaRiver-DTM-K,2.55,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-K.zip,,
 Ottawa River 2019-20,OttawaRiver-DTM-L,2.54,0.5,https://ws.gisetl.lrc.gov.on.ca/fmedatadownload/Packages/OttawaRiver-DTM-L.zip,,

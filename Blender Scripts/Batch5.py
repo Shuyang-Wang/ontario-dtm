@@ -17,7 +17,6 @@ def setup_color_management():
 
 #setup_color_management()
 
-
 def setup_lighting_and_camera():
     # Add Sun Light
     light_data = bpy.data.lights.new(name="Sun", type='SUN')
@@ -55,10 +54,9 @@ def setup_render_settings():
 
     # Eevee Settings
     eevee = scene.eevee
-    eevee.taa_render_samples = 15
+    eevee.taa_render_samples = 25
     eevee.use_gtao = True  # Enable Ambient Occlusion
     eevee.use_ssr = True    # Enable Screen Space Reflections
-    #eevee.shadow_method = 'ESM'  # Example shadow method
 
     # Ensure consistent lighting and shadows
     eevee.use_soft_shadows = False  # Disable soft shadows for consistency
@@ -136,7 +134,7 @@ def create_material(plane_object, pseudocolor_path, displacement_path):
     # Add Displacement node
     displacement_node = nodes.new(type="ShaderNodeDisplacement")
     displacement_node.location = (100, 0)
-    displacement_node.inputs["Scale"].default_value = 0.37 #0.6
+    displacement_node.inputs["Scale"].default_value = 1.372 #0.6
     displacement_node.inputs["Midlevel"].default_value = 200.0
 
     # Link Image Texture to Displacement Height
@@ -205,7 +203,7 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
             pseudocolor_path = os.path.join(pseudocolor_folder, pseudocolor_file)
 
             # Derive the displacement path (assuming matching filenames for displacement)
-            displacement_file = pseudocolor_file.replace("DTM", "DTM")
+            displacement_file = pseudocolor_file.replace("pseudocolor", "rescaled")
             displacement_path = os.path.join(displacement_folder, displacement_file)
 
             if os.path.exists(displacement_path):
@@ -219,7 +217,7 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
                 material, pseudocolor_image, displacement_image = create_material(plane, pseudocolor_path, displacement_path)
 
                 # Derive the output path for the render
-                output_file = pseudocolor_file.replace("DTM", "shade")
+                output_file = pseudocolor_file.replace("pseudocolor", "shade")
                 output_path = os.path.join(output_folder, output_file)
 
                 # Render the orthophoto
@@ -232,15 +230,11 @@ def process_folder(pseudocolor_folder, displacement_folder, output_folder):
     # Final cleanup of remaining objects, images, and materials after the loop
     # remove_existing_objects()
     
-# Define folders
-# pseudocolor_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/pseudocolor"
-# displacement_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/DTM_adj"
-# output_folder = "/Volumes/WD Green/Data/DTM/Blender Topographic Map/W/hillshade"
 
 import os
 
 # Define workspace folder
-workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-E" 
+workspace_folder = '/Users/shuyang/Data/DTM/Lake Erie/LIDAR2016to18_DTM-LkErie-R'
 
 # Define specific subfolders based on the workspace
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")  # Folder for pseudocolor images
