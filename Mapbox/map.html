@@ -2,83 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud Optimized GeoTIFF Viewer</title>
+    <title>COG Raster Display with OpenLayers</title>
+    <!-- OpenLayers CSS from the correct CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/css/ol.css" type="text/css">
     <style>
         #map {
-            height: 100vh;
+            height: 600px;
             width: 100%;
         }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
 
-    <div id="map"></div>
+<div id="map"></div>
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/geotiff@2.1.3/dist-browser/geotiff.js"></script> <!-- Updated version -->
-    <script src="https://unpkg.com/georaster@1.10.0/dist/georaster.min.js"></script>
-    <script src="https://unpkg.com/georaster-layer-for-leaflet@1.6.1/dist/georaster-layer-for-leaflet.browserify.min.js"></script>
+<!-- OpenLayers JS from the correct CDN -->
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/build/ol.js"></script>
 
-    <script>
-        async function loadGeoTIFF() {
-            try {
-                // URL of your Cloud Optimized GeoTIFF
-                const url = "https://ccemp-bucket.s3.us-east-2.amazonaws.com/Public+Access/COG/merged_output_cog.tif";
+<script>
+    // Initialize the OpenLayers map with a basemap
+    const map = new ol.Map({
+        target: 'map',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM()
+            })
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([-80.0, 45.0]), // Adjust the view center (Longitude, Latitude)
+            zoom: 6 // Set the initial zoom level
+        })
+    });
 
-                console.log("Fetching GeoTIFF from URL: ", url);
+    // URL of the Cloud Optimized GeoTIFF (COG)
+    const cogUrl = 'https://ccemp-bucket.s3.us-east-2.amazonaws.com/Public+Access/COG/merged_output_cog.tif';
 
-                // Fetch the GeoTIFF file using the correct version of GeoTIFF.js
-                const tiff = await GeoTIFF.fromUrl(url);
-                const image = await tiff.getImage();
-                console.log("GeoTIFF Image loaded:", image);
-
-                // Convert the GeoTIFF into a georaster object
-                const data = await image.readRasters();
-                const georaster = {
-                    rasterType: 'geotiff',
-                    noDataValue: image.getGDALNoData(),
-                    values: data,
-                    width: image.getWidth(),
-                    height: image.getHeight(),
-                    pixelHeight: image.getResolution()[1],
-                    pixelWidth: image.getResolution()[0],
-                    xmin: image.getBoundingBox()[0],
-                    xmax: image.getBoundingBox()[2],
-                    ymin: image.getBoundingBox()[1],
-                    ymax: image.getBoundingBox()[3]
-                };
-                console.log("Parsed GeoTIFF:", georaster);
-
-                // Create a Leaflet map centered on the GeoTIFF's bounds
-                const map = L.map('map').fitBounds([
-                    [georaster.ymin, georaster.xmin],
-                    [georaster.ymax, georaster.xmax]
-                ]);
-
-                // Add a base map layer (optional)
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 18
-                }).addTo(map);
-
-                // Add the GeoTIFF layer to the map
-                const geotiffLayer = new GeoRasterLayer({
-                    georaster: georaster,
-                    resolution: 256,  // Adjust pixel resolution if needed
-                    opacity: 0.7      // Adjust transparency
-                });
-
-                geotiffLayer.addTo(map);
-                console.log("GeoTIFF layer added to map");
-            } catch (error) {
-                console.error("Error loading GeoTIFF:", error);
+    // Create a GeoTIFF source and layer
+    const geoTiffSource = new ol.source.GeoTIFF({
+        sources: [
+            {
+                url: cogUrl
             }
-        }
+        ]
+    });
 
-        // Load the GeoTIFF once the window has loaded
-        window.onload = loadGeoTIFF;
-    </script>
+    // Create a layer for the COG
+    const cogLayer = new ol.layer.Tile({
+        source: geoTiffSource
+    });
+
+    // Add the COG layer to the map
+    map.addLayer(cogLayer);
+</script>
 
 </body>
 </html>
