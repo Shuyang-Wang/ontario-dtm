@@ -5,7 +5,8 @@ import gc
 import sys
 
 # Define paths (same as before)
-workspace_folder = '/Users/shuyang/Data/DTM/Lake Erie/LIDAR2016to18_DTM-LkErie-R'
+
+workspace_folder = '/Users/shuyang/Data/DTM/Halton/GTA-Halton-LidarDTM-C'
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")
 displacement_folder = os.path.join(workspace_folder, "DTM_adj")
 output_folder = os.path.join(workspace_folder, "hillshade", "Original")
@@ -52,7 +53,7 @@ def setup_render_settings():
 
     # Eevee Settings
     eevee = scene.eevee
-    eevee.taa_render_samples = 25
+    eevee.taa_render_samples = 15
     eevee.use_gtao = True  # Enable Ambient Occlusion
     eevee.use_ssr = True    # Enable Screen Space Reflections
 
@@ -124,7 +125,7 @@ def create_material(plane_object, pseudocolor_path, displacement_path):
     # Add Displacement node
     displacement_node = nodes.new(type="ShaderNodeDisplacement")
     displacement_node.location = (100, 0)
-    displacement_node.inputs["Scale"].default_value = 1.371
+    displacement_node.inputs["Scale"].default_value = 1.548
     displacement_node.inputs["Midlevel"].default_value = 200.0
 
     # Link Image Texture to Displacement Height
