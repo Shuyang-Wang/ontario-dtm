@@ -14,7 +14,7 @@ batch_controller_script = 'batch_controller.py'
 post_process_script = 'post-process.py'
 
 # Workspace folder
-workspace_folder = '/Volumes/WD Green/Data/DTM/Test-W'
+workspace_folder = '/Volumes/WD Green/Data/DTM/LIDAR2016to18_DTM-LkErie-W'
 
 # Run pre-process.py
 print("Running pre-process.py...")
