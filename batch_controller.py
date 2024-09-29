@@ -3,7 +3,7 @@ import subprocess
 
 # Paths
 blender_path = "/Applications/Blender.app/Contents/MacOS/Blender"  # Path to the Blender executable
-script_path = "/Users/shuyang/Documents/GitHub/ontario-dtm/Blender Scripts/blender_batch_process.py"  # Path to the batch processing script
+script_path = "/Users/shuyang/Documents/GitHub/ontario-dtm/blender_batch_process.py"  # Path to the batch processing script
 
 # Parameters
 workspace_folder = '/Users/shuyang/Data/DTM/Halton/GTA-Halton-LidarDTM-A'
@@ -21,10 +21,10 @@ total_batches = (total_files + batch_size - 1) // batch_size  # Calculate the to
 for batch_number in range(total_batches):
     print(f"Processing batch {batch_number + 1} of {total_batches}")
 
-    # Call Blender and pass the batch number and batch size as arguments to the script
+    # Call Blender and pass the batch number, batch size, and workspace folder as arguments to the script
     subprocess.run([
         blender_path, "-b", "--python", script_path, 
-        "--", "--batch_number", str(batch_number), "--batch_size", str(batch_size)
+        "--", "--batch_number", str(batch_number), "--batch_size", str(batch_size), "--workspace_folder", workspace_folder
     ])
 
     print(f"Finished batch {batch_number + 1}")
