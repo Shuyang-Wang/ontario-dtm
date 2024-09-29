@@ -5,6 +5,7 @@ import rasterio
 from rasterio.enums import Resampling
 import matplotlib.pyplot as plt
 from matplotlib import colors
+import json
 
 # %%
 
@@ -247,17 +248,30 @@ def print_lookup_table(global_min, global_max):
     print("------------------------------------------")
     for original, scaled in zip(original_values, scaled_values):
         print(f"{original:.2f} -> {scaled:.2f}")
-
     # Print vertical exaggeration
     print("\nVertical Exaggeration:")
     print(f"VE = {vertical_exaggeration:.2f}")
     print (f"Scale in Blender{1/vertical_exaggeration* 500}")
     
-
 print_lookup_table(local_min, local_max)
 
 # %%
+# Calculate vertical_exaggeration
+vertical_exaggeration = 65535 / (local_max - local_min)
+scale = 1 / vertical_exaggeration * 500
 
+# Create a dictionary to store the values
+data = {
+    "vertical_exaggeration": vertical_exaggeration,
+    "scale": scale
+}
+
+json_file_path = os.path.join(workspace_folder, "values.json")  
+# Save the values to a JSON file
+with open(json_file_path, 'w') as json_file:
+    json.dump(data, json_file, indent=4)
+
+print("Values saved to values.json")
 
 # %%
 

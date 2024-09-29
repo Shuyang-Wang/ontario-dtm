@@ -6,6 +6,7 @@ def run_script(script_path, *args):
         print(f"Error running {script_path}: {result.stderr}")
     else:
         print(f"Successfully ran {script_path}")
+        print(result.stdout)  # Print the standard output for debugging
 
 # Paths to the scripts
 pre_process_script = 'pre-process.py'
@@ -13,7 +14,7 @@ batch_controller_script = 'batch_controller.py'
 post_process_script = 'post-process.py'
 
 # Workspace folder
-workspace_folder = '/Volumes/WD Green/Data/DTM/LIDAR2016to18_DTM-LkErie-W'
+workspace_folder = '/Volumes/WD Green/Data/DTM/Test-W'
 
 # Run pre-process.py
 print("Running pre-process.py...")
