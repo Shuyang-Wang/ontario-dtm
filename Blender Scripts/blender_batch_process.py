@@ -6,7 +6,7 @@ import sys
 
 # Define paths (same as before)
 
-workspace_folder = '/Users/shuyang/Data/DTM/Halton/GTA-Halton-LidarDTM-C'
+workspace_folder = '/Users/shuyang/Data/DTM/Halton/GTA-Halton-LidarDTM-A'
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")
 displacement_folder = os.path.join(workspace_folder, "DTM_adj")
 output_folder = os.path.join(workspace_folder, "hillshade", "Original")
@@ -45,22 +45,45 @@ def setup_lighting_and_camera():
     bpy.context.scene.camera = camera_object
     print('Lighting and camera setup complete.')
 
-def setup_render_settings():
+def setup_render_settings(engine='CYCLES', use_gpu=True):
     scene = bpy.context.scene
 
-    # Set the render engine to Eevee
-    scene.render.engine = 'BLENDER_EEVEE_NEXT'
+    # Set the render engine based on the parameter (default: Cycles)
+    if engine.upper() == 'CYCLES':
+        scene.render.engine = 'CYCLES'
 
-    # Eevee Settings
-    eevee = scene.eevee
-    eevee.taa_render_samples = 15
-    eevee.use_gtao = True  # Enable Ambient Occlusion
-    eevee.use_ssr = True    # Enable Screen Space Reflections
+        # Cycles settings
+        cycles = scene.cycles
+        cycles.samples = 3  # Set max samples to 5
+        cycles.use_adaptive_sampling = True
+        cycles.use_denoising = True
+        
+        # Enable GPU rendering if requested
+        if use_gpu:
+            # Set device type to GPU
+            cycles.device = 'GPU'
 
-    # Ensure consistent lighting and shadows
-    eevee.use_soft_shadows = False  # Disable soft shadows for consistency
+        print('Render settings configured for Cycles with GPU.' if use_gpu else 'Render settings configured for Cycles with CPU.')
 
-    print('Render settings configured for Eevee.')
+    elif engine.upper() == 'EEVEE':
+        scene.render.engine = 'BLENDER_EEVEE_NEXT'
+
+        # Eevee settings
+        eevee = scene.eevee
+        eevee.taa_render_samples = 15
+        eevee.use_gtao = True  # Enable Ambient Occlusion
+        eevee.use_ssr = True   # Enable Screen Space Reflections
+        eevee.use_soft_shadows = False  # Disable soft shadows for consistency
+
+        print('Render settings configured for Eevee.')
+
+    else:
+        print('Invalid render engine specified. Choose either "CYCLES" or "EEVEE".')
+
+
+# Example usage:
+setup_render_settings('CYCLES')  # Default engine set to Cycles
+
 
 def create_plane():
     # Create a new plane object

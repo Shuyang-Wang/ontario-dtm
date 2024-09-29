@@ -6,7 +6,7 @@ blender_path = "/Applications/Blender.app/Contents/MacOS/Blender"  # Path to the
 script_path = "/Users/shuyang/Documents/GitHub/ontario-dtm/Blender Scripts/blender_batch_process.py"  # Path to the batch processing script
 
 # Parameters
-workspace_folder = '/Users/shuyang/Data/DTM/Halton/GTA-Halton-LidarDTM-C'
+workspace_folder = '/Users/shuyang/Data/DTM/Halton/GTA-Halton-LidarDTM-A'
 #workspace_folder = "/Users/shuyang/Data/DTM/LakeNipissing-DTM-A" 
 
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")
