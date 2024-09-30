@@ -59,7 +59,7 @@ def setup_lighting_and_camera():
     bpy.context.scene.camera = camera_object
     print('Lighting and camera setup complete.')
 
-def setup_render_settings(engine='CYCLES', use_gpu=True):
+def setup_render_settings(engine='CYCLES', use_gpu=False):
     scene = bpy.context.scene
 
     # Set the render engine based on the parameter (default: Cycles)
