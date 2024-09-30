@@ -68,7 +68,7 @@ def setup_render_settings(engine='CYCLES', use_gpu=False):
 
         # Cycles settings
         cycles = scene.cycles
-        cycles.samples = 3  # Set max samples to 5
+        cycles.samples = 1  # Set max samples to 5
         cycles.use_adaptive_sampling = True
         cycles.use_denoising = True
         
