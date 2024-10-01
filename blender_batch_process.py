@@ -59,9 +59,9 @@ def setup_lighting_and_camera():
     bpy.context.scene.camera = camera_object
     print('Lighting and camera setup complete.')
 
-def setup_render_settings(engine='CYCLES', use_gpu=True):
+def setup_render_settings(engine='CYCLES', use_gpu=False):
     scene = bpy.context.scene
-
+    
     # Set the render engine based on the parameter (default: Cycles)
     if engine.upper() == 'CYCLES':
         scene.render.engine = 'CYCLES'
@@ -95,8 +95,6 @@ def setup_render_settings(engine='CYCLES', use_gpu=True):
         print('Invalid render engine specified. Choose either "CYCLES" or "EEVEE".')
 
 
-# Example usage:
-setup_render_settings('CYCLES')  # Default engine set to Cycles
 
 
 def create_plane():
@@ -210,7 +208,7 @@ def remove_existing_objects():
 
 def process_batch(files, batch_number, override_output_file=False):
     setup_lighting_and_camera()
-    setup_render_settings()
+    setup_render_settings(engine='CYCLES', use_gpu=True) 
 
     for pseudocolor_file in files:
         if pseudocolor_file.endswith(".tif"):

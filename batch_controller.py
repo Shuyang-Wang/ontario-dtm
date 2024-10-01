@@ -33,7 +33,7 @@ for batch_number in range(total_batches):
     result = subprocess.run([
         blender_path, "-b", "--python", script_path, 
         "--", "--batch_number", str(batch_number), "--batch_size", str(batch_size), "--workspace_folder", workspace_folder
-    ], capture_output=True, text=True)
+    ], capture_output=False, text=True)
 
     if result.returncode != 0:
         print(f"Error running Blender for batch {batch_number + 1}: {result.stderr}")
