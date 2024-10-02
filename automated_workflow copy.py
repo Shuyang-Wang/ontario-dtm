@@ -14,7 +14,7 @@ batch_controller_script = 'batch_controller.py'
 post_process_script = 'post-process.py'
 
 # Workspace folder
-workspace_folder = '/Users/shuyang/Data/DTM/Halton/GTA-Halton-LidarDTM-D'
+workspace_folder = '/Users/shuyang/Data/DTM/Halton/GTA-Halton-LidarDTM-B'
 
 # Run pre-process.py
 #print("Running pre-process.py...")
@@ -22,7 +22,7 @@ workspace_folder = '/Users/shuyang/Data/DTM/Halton/GTA-Halton-LidarDTM-D'
 
 # Run batch_controller.py
 print("Running batch_controller.py...")
-run_script(batch_controller_script, workspace_folder)
+#run_script(batch_controller_script, workspace_folder)
 
 # Run post-process.py
 print("Running post-process.py...")
