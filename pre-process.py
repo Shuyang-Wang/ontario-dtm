@@ -91,12 +91,11 @@ def double_hue_cmap(name='double_hue'):
     return cmap
 
 # Create the custom colormap
-double_cmap = double_hue_cmap()
-double_cmap
+
 
 # %%
 # Function to create a high-resolution colormap by interpolation
-def create_high_res_colormap(cmap_name='terrain', num_colors=1024):
+def create_high_res_colormap(cmap_name='terrain', num_colors=25600):
     base_cmap = plt.get_cmap(cmap_name)
     color_indices = np.linspace(0, 1, num_colors)
     high_res_cmap = colors.LinearSegmentedColormap.from_list(
@@ -165,7 +164,9 @@ def create_pseudocolor_images_from_original(folder, min_value, max_value, output
 
 # %%
 #Generate pseudocolor images using the custom colormap
-create_pseudocolor_images_from_original(input_folder, regional_min, regional_max, pseudocolor_output_folder, double_cmap)
+custom_cmap = create_high_res_colormap('terrain',25600)
+double_cmap = double_hue_cmap()
+create_pseudocolor_images_from_original(input_folder, regional_min, regional_max, pseudocolor_output_folder, custom_cmap)
 
 # %%
 
