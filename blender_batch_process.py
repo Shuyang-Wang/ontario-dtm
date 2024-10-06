@@ -3,6 +3,7 @@ import os
 import gc
 import json
 import sys
+import math
 
 # Define paths (same as before)
 
@@ -41,8 +42,10 @@ def setup_lighting_and_camera():
     light_object = bpy.data.objects.new(name="Sun", object_data=light_data)
     bpy.context.collection.objects.link(light_object)
 
-    # Set Sun light angle (default rotation)
-    light_object.rotation_euler = (0.0, 0.0, 0.0)
+    # Set Sun light angle to 100 degrees azimuth and from the upper-left direction
+    light_object.rotation_euler = (math.radians(45), 0.0, math.radians(100))
+
+    
 
     # Set up an Orthographic Camera
     camera_data = bpy.data.cameras.new(name="Orthographic_Camera")
@@ -109,6 +112,11 @@ def create_plane():
     plane_object.scale = (1.0, 1.0, 1.0)
     plane_object.location = (0.0, 0.0, 0.0)
     plane_object.rotation_euler = (0.0, 0.0, 0.0)
+
+    # Add a subdivision surface modifier to make the plane finer
+    subdivision_modifier = plane_object.modifiers.new(name='Subdivision', type='SUBSURF')
+    subdivision_modifier.levels = 4  # Adjust the number of subdivisions as needed
+    subdivision_modifier.render_levels = 4 
 
     return plane_object
 
@@ -208,7 +216,7 @@ def remove_existing_objects():
 
 def process_batch(files, batch_number, override_output_file=False):
     setup_lighting_and_camera()
-    setup_render_settings(engine='CYCLES', use_gpu=True) 
+    setup_render_settings(engine='EEVEE', use_gpu=True) 
 
     for pseudocolor_file in files:
         if pseudocolor_file.endswith(".tif"):
