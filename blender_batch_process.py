@@ -1,20 +1,35 @@
-
 import bpy
 import os
 import gc
+import json
 import sys
+import math
 
 # Define paths (same as before)
 
-workspace_folder = '/Users/shuyang/Data/DTM/Halton/GTA-Halton-LidarDTM-A'
+# Accept batch number, batch size, and workspace folder from the command line
+batch_number = int(sys.argv[sys.argv.index("--batch_number") + 1])
+batch_size = int(sys.argv[sys.argv.index("--batch_size") + 1])
+workspace_folder = sys.argv[sys.argv.index("--workspace_folder") + 1]
+
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")
 displacement_folder = os.path.join(workspace_folder, "DTM_adj")
 output_folder = os.path.join(workspace_folder, "hillshade", "Original")
-template_path = "/Users/shuyang/Documents/GitHub/ontario-dtm/Blender Scripts/templete2.blend"
+# Determine the path to the template .blend file relative to this script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+template_path = os.path.join(script_dir, "templete2.blend")
 
 # Accept batch number and batch size from the command line
 batch_number = int(sys.argv[sys.argv.index("--batch_number") + 1])
 batch_size = int(sys.argv[sys.argv.index("--batch_size") + 1])
+
+
+# Read the scale value from the JSON file
+
+json_file_path = os.path.join(workspace_folder, "values.json")  
+with open(json_file_path , 'r') as json_file:
+    data = json.load(json_file)
+    scale = data['scale']
 
 # Load the template .blend file and disable global undo to save memory
 bpy.ops.wm.open_mainfile(filepath=template_path)
@@ -27,8 +42,10 @@ def setup_lighting_and_camera():
     light_object = bpy.data.objects.new(name="Sun", object_data=light_data)
     bpy.context.collection.objects.link(light_object)
 
-    # Set Sun light angle (default rotation)
-    light_object.rotation_euler = (0.0, 0.0, 0.0)
+    # Set Sun light angle to 100 degrees azimuth and from the upper-left direction
+    light_object.rotation_euler = (math.radians(45), 0.0, math.radians(100))
+
+    
 
     # Set up an Orthographic Camera
     camera_data = bpy.data.cameras.new(name="Orthographic_Camera")
@@ -45,16 +62,16 @@ def setup_lighting_and_camera():
     bpy.context.scene.camera = camera_object
     print('Lighting and camera setup complete.')
 
-def setup_render_settings(engine='CYCLES', use_gpu=True):
+def setup_render_settings(engine='CYCLES', use_gpu=False):
     scene = bpy.context.scene
-
+    
     # Set the render engine based on the parameter (default: Cycles)
     if engine.upper() == 'CYCLES':
         scene.render.engine = 'CYCLES'
 
         # Cycles settings
         cycles = scene.cycles
-        cycles.samples = 3  # Set max samples to 5
+        cycles.samples = 1  # Set max samples to 5
         cycles.use_adaptive_sampling = True
         cycles.use_denoising = True
         
@@ -81,8 +98,6 @@ def setup_render_settings(engine='CYCLES', use_gpu=True):
         print('Invalid render engine specified. Choose either "CYCLES" or "EEVEE".')
 
 
-# Example usage:
-setup_render_settings('CYCLES')  # Default engine set to Cycles
 
 
 def create_plane():
@@ -97,6 +112,11 @@ def create_plane():
     plane_object.scale = (1.0, 1.0, 1.0)
     plane_object.location = (0.0, 0.0, 0.0)
     plane_object.rotation_euler = (0.0, 0.0, 0.0)
+
+    # Add a subdivision surface modifier to make the plane finer
+    subdivision_modifier = plane_object.modifiers.new(name='Subdivision', type='SUBSURF')
+    subdivision_modifier.levels = 4  # Adjust the number of subdivisions as needed
+    subdivision_modifier.render_levels = 4 
 
     return plane_object
 
@@ -148,7 +168,7 @@ def create_material(plane_object, pseudocolor_path, displacement_path):
     # Add Displacement node
     displacement_node = nodes.new(type="ShaderNodeDisplacement")
     displacement_node.location = (100, 0)
-    displacement_node.inputs["Scale"].default_value = 1.548
+    displacement_node.inputs["Scale"].default_value = scale
     displacement_node.inputs["Midlevel"].default_value = 200.0
 
     # Link Image Texture to Displacement Height
@@ -196,7 +216,7 @@ def remove_existing_objects():
 
 def process_batch(files, batch_number, override_output_file=False):
     setup_lighting_and_camera()
-    setup_render_settings()
+    setup_render_settings(engine='EEVEE', use_gpu=True) 
 
     for pseudocolor_file in files:
         if pseudocolor_file.endswith(".tif"):
