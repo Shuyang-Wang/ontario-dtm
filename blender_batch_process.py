@@ -12,86 +12,66 @@ batch_number = int(sys.argv[sys.argv.index("--batch_number") + 1])
 batch_size = int(sys.argv[sys.argv.index("--batch_size") + 1])
 workspace_folder = sys.argv[sys.argv.index("--workspace_folder") + 1]
 
+# Define folder paths
 pseudocolor_folder = os.path.join(workspace_folder, "pseudocolor")
 displacement_folder = os.path.join(workspace_folder, "DTM_adj")
 output_folder = os.path.join(workspace_folder, "hillshade", "Original")
+
 # Determine the path to the template .blend file relative to this script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 template_path = os.path.join(script_dir, "templete2.blend")
 
-# Accept batch number and batch size from the command line
-batch_number = int(sys.argv[sys.argv.index("--batch_number") + 1])
-batch_size = int(sys.argv[sys.argv.index("--batch_size") + 1])
-
-
 # Read the scale value from the JSON file
-
-json_file_path = os.path.join(workspace_folder, "values.json")  
-with open(json_file_path , 'r') as json_file:
-    data = json.load(json_file)
-    scale = data['scale']
+json_file_path = os.path.join(workspace_folder, "values.json")
+with open(json_file_path, 'r') as json_file:
+    scale = json.load(json_file)['scale']
 
 # Load the template .blend file and disable global undo to save memory
 bpy.ops.wm.open_mainfile(filepath=template_path)
 bpy.context.preferences.edit.use_global_undo = False  # Disable global undo to save memory
 
+
+
 def setup_lighting_and_camera():
     # Add Sun Light
-    light_data = bpy.data.lights.new(name="Sun", type='SUN')
-    light_data.energy = 2.0
-    light_object = bpy.data.objects.new(name="Sun", object_data=light_data)
-    bpy.context.collection.objects.link(light_object)
-
-    # Set Sun light angle to 100 degrees azimuth and from the upper-left direction
-    light_object.rotation_euler = (math.radians(45), 0.0, math.radians(100))
-
-    
+    light = bpy.data.objects.new("Sun", bpy.data.lights.new("Sun", 'SUN'))
+    light.data.energy = 2.0
+    light.rotation_euler = (math.radians(45), 0.0, math.radians(100))
+    bpy.context.collection.objects.link(light)
 
     # Set up an Orthographic Camera
-    camera_data = bpy.data.cameras.new(name="Orthographic_Camera")
-    camera_data.type = 'ORTHO'
-    camera_data.ortho_scale = 1.0  # Set the desired orthographic scale
-    camera_object = bpy.data.objects.new("Orthographic_Camera", camera_data)
-    bpy.context.collection.objects.link(camera_object)
+    camera = bpy.data.objects.new("Orthographic_Camera", bpy.data.cameras.new("Orthographic_Camera"))
+    camera.data.type = 'ORTHO'
+    camera.data.ortho_scale = 1.0
+    camera.location = (0.0, 0.0, 10.0)
+    camera.rotation_euler = (0.0, 0.0, 0.0)
+    bpy.context.collection.objects.link(camera)
+    bpy.context.scene.camera = camera
 
-    # Set Camera location and orientation
-    camera_object.location = (0.0, 0.0, 10.0)
-    camera_object.rotation_euler = (0.0, 0.0, 0.0)
-
-    # Set the camera as the active camera
-    bpy.context.scene.camera = camera_object
     print('Lighting and camera setup complete.')
+
+
 
 def setup_render_settings(engine='CYCLES', use_gpu=False):
     scene = bpy.context.scene
-    
-    # Set the render engine based on the parameter (default: Cycles)
-    if engine.upper() == 'CYCLES':
-        scene.render.engine = 'CYCLES'
+    engine = engine.upper()
 
-        # Cycles settings
+    if engine == 'CYCLES':
+        scene.render.engine = 'CYCLES'
         cycles = scene.cycles
-        cycles.samples = 1  # Set max samples to 5
+        cycles.samples = 1
         cycles.use_adaptive_sampling = True
         cycles.use_denoising = True
-        
-        # Enable GPU rendering if requested
-        if use_gpu:
-            # Set device type to GPU
-            cycles.device = 'GPU'
+        cycles.device = 'GPU' if use_gpu else 'CPU'
+        print(f'Render settings configured for Cycles with {"GPU" if use_gpu else "CPU"}.')
 
-        print('Render settings configured for Cycles with GPU.' if use_gpu else 'Render settings configured for Cycles with CPU.')
-
-    elif engine.upper() == 'EEVEE':
+    elif engine == 'EEVEE':
         scene.render.engine = 'BLENDER_EEVEE_NEXT'
-
-        # Eevee settings
         eevee = scene.eevee
         eevee.taa_render_samples = 15
-        eevee.use_gtao = True  # Enable Ambient Occlusion
-        eevee.use_ssr = True   # Enable Screen Space Reflections
-        eevee.use_soft_shadows = False  # Disable soft shadows for consistency
-
+        eevee.use_gtao = True
+        eevee.use_ssr = True
+        eevee.use_soft_shadows = False
         print('Render settings configured for Eevee.')
 
     else:
@@ -100,7 +80,7 @@ def setup_render_settings(engine='CYCLES', use_gpu=False):
 
 
 
-def create_plane():
+def create_plane(tif_path, scale):
     # Create a new plane object
     bpy.ops.mesh.primitive_plane_add(size=1, enter_editmode=False, align='WORLD', location=(0, 0, 0))
 
@@ -113,74 +93,67 @@ def create_plane():
     plane_object.location = (0.0, 0.0, 0.0)
     plane_object.rotation_euler = (0.0, 0.0, 0.0)
 
-    # Add a subdivision surface modifier to make the plane finer
+    # Add a subdivision surface modifier
     subdivision_modifier = plane_object.modifiers.new(name='Subdivision', type='SUBSURF')
-    subdivision_modifier.levels = 4  # Adjust the number of subdivisions as needed
-    subdivision_modifier.render_levels = 4 
+    subdivision_modifier.render_levels = 10
+    subdivision_modifier.subdivision_type = 'SIMPLE'
+    subdivision_modifier.use_creases = True
+    subdivision_modifier.uv_smooth = 'PRESERVE_CORNERS'
+    subdivision_modifier.boundary_smooth = 'ALL'
+
+    # Add a displace modifier
+    displace_modifier = plane_object.modifiers.new(name='Displace', type='DISPLACE')
+    displace_modifier.strength = scale
+    displace_modifier.mid_level = 1.0
+    displace_modifier.texture_coords = 'UV'
+
+    # Load the texture
+    texture = bpy.data.textures.new(name="DisplaceTexture", type='IMAGE')
+    texture.image = bpy.data.images.load(filepath=tif_path)
+    texture.image.colorspace_settings.name = 'Non-Color'
+    displace_modifier.texture = texture
 
     return plane_object
 
-def create_material(plane_object, pseudocolor_path, displacement_path):
-    # Create new material
+
+import bpy
+
+def create_material(plane_object, pseudocolor_path, displacement_path, link_base_color=True):
+    # Create new material with nodes
     material = bpy.data.materials.new(name="PBR_Material")
     material.use_nodes = True
-    nodes = material.node_tree.nodes
-    links = material.node_tree.links
-
-    # Clear all nodes
+    nodes, links = material.node_tree.nodes, material.node_tree.links
     nodes.clear()
 
-    # Add Principled BSDF node
+    # Add nodes
     bsdf_node = nodes.new(type="ShaderNodeBsdfPrincipled")
-    bsdf_node.location = (0, 300)
-    bsdf_node.inputs["Metallic"].default_value = 0.0
-    bsdf_node.inputs["Roughness"].default_value = 0.65
-    bsdf_node.inputs["IOR"].default_value = 1.5
-    bsdf_node.inputs["Alpha"].default_value = 1.0
-
-    # Add Material Output node
     output_node = nodes.new(type="ShaderNodeOutputMaterial")
-    output_node.location = (400, 300)
-
-    # Link BSDF to Material Output
-    links.new(bsdf_node.outputs["BSDF"], output_node.inputs["Surface"])
-
-    # Add Image Texture node for Base Color
     image_texture_node_1 = nodes.new(type="ShaderNodeTexImage")
-    image_texture_node_1.location = (-300, 300)
-    pseudocolor_image = bpy.data.images.load(filepath=pseudocolor_path)
-    image_texture_node_1.image = pseudocolor_image
-    image_texture_node_1.extension = 'EXTEND'
-    image_texture_node_1.interpolation = 'Cubic'  
-
-    # Link Image Texture to Principled BSDF Base Color
-    links.new(image_texture_node_1.outputs["Color"], bsdf_node.inputs["Base Color"])
-
-    # Add Image Texture node for Displacement
     image_texture_node_2 = nodes.new(type="ShaderNodeTexImage")
-    image_texture_node_2.location = (-300, 0)
-    displacement_image = bpy.data.images.load(filepath=displacement_path)
-    image_texture_node_2.image = displacement_image
-    image_texture_node_2.extension = 'EXTEND'
-    image_texture_node_2.image.colorspace_settings.name = 'Non-Color'
-    image_texture_node_2.interpolation = 'Cubic' 
-    
-    # Add Displacement node
     displacement_node = nodes.new(type="ShaderNodeDisplacement")
+
+    # Set node properties
+    bsdf_node.location, output_node.location = (0, 300), (400, 300)
+    bsdf_node.inputs["Roughness"].default_value = 0.65
+    image_texture_node_1.location, image_texture_node_2.location = (-300, 300), (-300, 0)
+    image_texture_node_1.image = bpy.data.images.load(filepath=pseudocolor_path)
+    image_texture_node_2.image = bpy.data.images.load(filepath=displacement_path)
+    image_texture_node_2.image.colorspace_settings.name = 'Non-Color'
     displacement_node.location = (100, 0)
-    displacement_node.inputs["Scale"].default_value = scale
+    displacement_node.inputs["Scale"].default_value = scale / 100
     displacement_node.inputs["Midlevel"].default_value = 200.0
 
-    # Link Image Texture to Displacement Height
+    # Link nodes
+    links.new(bsdf_node.outputs["BSDF"], output_node.inputs["Surface"])
+    if link_base_color:
+        links.new(image_texture_node_1.outputs["Color"], bsdf_node.inputs["Base Color"])
     links.new(image_texture_node_2.outputs["Color"], displacement_node.inputs["Height"])
-
-    # Link Displacement node to Material Output Displacement
     links.new(displacement_node.outputs["Displacement"], output_node.inputs["Displacement"])
 
-    # Assign the material to the plane
+    # Assign material to plane
     plane_object.data.materials.append(material)
 
-    return material, pseudocolor_image, displacement_image
+    return material, image_texture_node_1.image, image_texture_node_2.image
 
 def render_orthophoto(output_path):
     bpy.context.scene.render.resolution_x = 2000
@@ -236,8 +209,8 @@ def process_batch(files, batch_number, override_output_file=False):
             # Only proceed with Blender operations if the output file doesn't exist or override is True
             if os.path.exists(displacement_path):
                 remove_existing_objects()  # Clean up any previous objects
-                plane = create_plane()  # Create a new plane
-                create_material(plane, pseudocolor_path, displacement_path)  # Set up the material
+                plane = create_plane(displacement_path, scale)
+                create_material(plane, pseudocolor_path, displacement_path, link_base_color=False)  # Set up the material
                 render_orthophoto(output_path)  # Render the output to the file
             else:
                 print(f"Displacement map not found for {pseudocolor_file}")
