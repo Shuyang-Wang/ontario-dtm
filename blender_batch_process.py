@@ -68,7 +68,7 @@ def setup_render_settings(engine='CYCLES', use_gpu=False):
     elif engine == 'EEVEE':
         scene.render.engine = 'BLENDER_EEVEE_NEXT'
         eevee = scene.eevee
-        eevee.taa_render_samples = 15
+        eevee.taa_render_samples = 20
         eevee.use_gtao = True
         eevee.use_ssr = True
         eevee.use_soft_shadows = False

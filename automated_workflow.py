@@ -1,7 +1,7 @@
 import subprocess
 
 def run_script(script_path, *args):
-    result = subprocess.run(['python', script_path, *args], capture_output=True, text=True)
+    result = subprocess.run(['python', script_path, *args], capture_output=False, text=True)
     if result.returncode != 0:
         print(f"Error running {script_path}: {result.stderr}")
     else:
@@ -14,18 +14,18 @@ batch_controller_script = 'batch_controller.py'
 post_process_script = 'post-process.py'
 
 # Workspace folder
-workspace_folder = '/Volumes/WD Green/Data/DTM/Jinhua'
+workspace_folder = '/Users/shuyang/Data/DTM/Sudbury/Sudbury-DTM-11'
 
 # Run pre-process.py
 print("Running pre-process.py...")
-run_script(pre_process_script, workspace_folder)
+#run_script(pre_process_script, workspace_folder)
 
 # Run batch_controller.py
 print("Running batch_controller.py...")
-#run_script(batch_controller_script, workspace_folder)
+run_script(batch_controller_script, workspace_folder)
 
 # Run post-process.py
 print("Running post-process.py...")
-#run_script(post_process_script, workspace_folder)
+run_script(post_process_script, workspace_folder)
 
 print("Workflow completed.")
