@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GeoTIFF Processing in Browser</title>
+    <script src="https://unpkg.com/geotiff@1.0.0-beta.6/dist/geotiff.browser.min.js"></script>
+</head>
+<body>
+    <input type="number" id="blockSizeInput" placeholder="Enter block size in meters" value="5000">
+    <button id="processButton">Process and Download GeoTIFF</button>
+    <script>
+        document.getElementById('processButton').addEventListener('click', async function() {
+            const blockSize = parseInt(document.getElementById('blockSizeInput').value, 10);
+            if (blockSize > 0) {
+                const cogUrl = 'https://ccemp-bucket.s3.amazonaws.com/Public%20Access/COG/GTA-Halton-LidarDTM-A_cog.tif';
+                const response = await fetch(cogUrl);
+                const arrayBuffer = await response.arrayBuffer();
+                const tiff = await GeoTIFF.fromArrayBuffer(arrayBuffer);
+                const image = await tiff.getImage();
+
+                // Calculate the center of the raster and define a block around it
+                const bounds = image.getBoundingBox();
+                const centerX = (bounds[0] + bounds[2]) / 2;
+                const centerY = (bounds[1] + bounds[3]) / 2;
+                const x1 = centerX - blockSize / 2;
+                const y1 = centerY - blockSize / 2;
+                const x2 = centerX + blockSize / 2;
+                const y2 = centerY + blockSize / 2;
+
+                // Convert the geographic bounding box to a pixel window
+                const window = image.getWindow(x1, y1, x2, y2);
+
+                // Read the raster data for the specified window
+                const data = await image.readRasters({ window });
+
+                // Create a new GeoTIFF file with the extracted data
+                const newTiff = await GeoTIFF.write({
+                    fileDirectory: {
+                        ImageWidth: window[2] - window[0],
+                        ImageLength: window[3] - window[1],
+                        BitsPerSample: [8, 8, 8],
+                        Compression: 1, // No compression
+                        PhotometricInterpretation: 2, // RGB
+                        SamplesPerPixel: 3,
+                        PlanarConfiguration: 1,
+                        SampleFormat: [1, 1, 1],
+                        ModelPixelScale: image.getFileDirectory().ModelPixelScale,
+                        ModelTiepoint: image.getFileDirectory().ModelTiepoint,
+                        GeoKeyDirectory: image.getFileDirectory().GeoKeyDirectory,
+                    },
+                    geoKeys: image.getGeoKeys(),
+                    raster: data,
+                });
+
+                // Convert the new GeoTIFF to a Blob and trigger the download
+                const blob = new Blob([newTiff], { type: 'image/tiff' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'center_5x5_rgb_highest_res.tif';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        });
+    </script>
+</body>
+</html>
