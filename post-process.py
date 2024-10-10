@@ -184,9 +184,7 @@ def generate_cog_with_jpeg(input_file, output_file):
     )
     # Step 3: Translate the dataset to a COG
     print(f"Generating Cloud Optimized GeoTIFF for {input_file} with JPEG compression (quality=60)...")
-
     gdal.Translate(output_file, dataset, options=cog_options)
-
     print(f"COG saved to: {output_file}")
 
 # Example usage:
